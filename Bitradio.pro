@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = Bitradio-qt
 VERSION = 1.0.0.1
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
-QT += network printsupport
+QT += network
 DEFINES += ENABLE_WALLET
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -25,6 +25,24 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+unix:!macx {
+
+}
+
+macx: {
+    OPENSSL_LIB_PATH= /usr/local/Cellar/openssl/1.0.2o_2/lib
+    OPENSSL_INCLUDE_PATH= /usr/local/Cellar/openssl/1.0.2o_2/include
+    BOOST_INCLUDE_PATH=/usr/local/Cellar/boost@1.57/1.57.0/include
+    BOOST_LIB_PATH=/usr/local/Cellar/boost@1.57/1.57.0/lib
+    BDB_INCLUDE_PATH=/usr/local/Cellar/berkeley-db@4/4.8.30/include
+    BDB_LIB_PATH=/usr/local/Cellar/berkeley-db@4/4.8.30/lib
+    MINIUPNPC_INCLUDE_PATH= /usr/local/Cellar/miniupnpc/2.1/include
+    MINIUPNPC_LIB_PATH= /usr/local/Cellar/miniupnpc/2.1/lib
+}
+
+win32: {
+
+}
 
 # workaround for boost 1.58
 DEFINES += BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT
@@ -130,9 +148,9 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
 INCLUDEPATH += src/secp256k1/include
 LIBS += $$PWD/src/secp256k1/src/libsecp256k1_la-secp256k1.o
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
-    gensecp256k1.commands = cd $$PWD/src/secp256k1 && ./autogen.sh && ./configure --enable-module-recovery && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\"
-    gensecp256k1.target = $$PWD/src/secp256k1/src/libsecp256k1_la-secp256k1.o
-    gensecp256k1.depends = FORCE
+#    gensecp256k1.commands = cd $$PWD/src/secp256k1 && ./autogen1.sh && ./configure --enable-module-recovery && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\"
+#    gensecp256k1.target = $$PWD/src/secp256k1/src/libsecp256k1_la-secp256k1.o
+#    gensecp256k1.depends = FORCE
     PRE_TARGETDEPS += $$PWD/src/secp256k1/src/libsecp256k1_la-secp256k1.o
     QMAKE_EXTRA_TARGETS += gensecp256k1
     # Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
@@ -301,7 +319,6 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/masternodemanager.h \
     src/qt/addeditadrenalinenode.h \
     src/qt/adrenalinenodeconfigdialog.h \
-    src/qt/qcustomplot.h \
     src/smessage.h \
     src/qt/messagepage.h \
     src/qt/messagemodel.h \
@@ -424,7 +441,6 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/masternodemanager.cpp \
     src/qt/addeditadrenalinenode.cpp \
     src/qt/adrenalinenodeconfigdialog.cpp \
-    src/qt/qcustomplot.cpp \
     src/smessage.cpp \
     src/qt/messagepage.cpp \
     src/qt/messagemodel.cpp \
