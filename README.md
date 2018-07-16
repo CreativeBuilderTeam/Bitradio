@@ -5,7 +5,7 @@
 
 Bitradio is a PoS-based cryptocurrency.
 
-Bitradio uses libsecp256k1, libgmp, Boost1.55, OR Boost1.57,  Openssl1.01p, Berkeley DB 4.8, QT5 to compile
+Bitradio uses libsecp256k1, libgmp, Boost1.55, OR Boost1.57, libminiupnpc, Openssl1.01p, Berkeley DB 4.8, QT5 to compile
 
 Block Spacing: 2 minutes
 Stake Minimum Age: 8 Hours
@@ -20,6 +20,10 @@ RPC Port: 32455
 
 BUILD LINUX
 -----------
+0) Install common requirements for masternodes, plus the following specific bitradio requirements:
+
+`apt-get install libgmp-dev libminiupnpc-dev zlib1g-dev`
+
 1) git clone https://github.com/thebitradio/Bitradio
 
 2) cd Bitradio/src
