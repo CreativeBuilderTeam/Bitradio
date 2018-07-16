@@ -22,7 +22,7 @@ BUILD LINUX
 -----------
 0) Install common requirements for masternodes, plus the following specific bitradio requirements:
 
-`apt-get install libsecp256k1-0 libgmp-dev libminiupnpc-dev zlib1g-dev`
+`apt-get install libgmp-dev libminiupnpc-dev zlib1g-dev`
 
 1) git clone https://github.com/thebitradio/Bitradio
 
